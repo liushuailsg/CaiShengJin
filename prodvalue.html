@@ -1,0 +1,992 @@
+﻿
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="ctl00_Head1"><title>
+	招商银行 -- 个人理财产品 -- 产品净值
+</title><link rel="Shortcut Icon" href="/cfweb/cmb.ico" /><link 
+
+rel="Bookmark" href="/cfweb/cmb.ico" /><link 
+
+href="/cfweb/Styles/header.css" rel="stylesheet" type="text/css" /><link 
+
+href="/cfweb/Styles/footer.css" rel="stylesheet" type="text/css" /><link 
+
+href="/cfweb/Styles/Common.css" rel="Stylesheet" type="text/css" />
+
+    <script language="javascript" type="text/javascript" 
+
+charset="GB2312" src="/cfweb/Scripts/NetBank.js"></script>
+
+    <script language="javascript" type="text/javascript" 
+
+charset="GB2312" src="/cfweb/Scripts/Common.js"></script>
+
+    <script language="javascript" type="text/javascript" 
+
+charset="GB2312" src="/cfweb/Scripts/AjaxHelper.js"></script>
+
+    <script src="/cfweb/Scripts/Page.js" 
+
+type="text/javascript"></script>
+    
+    <!--[if lt IE 8 ]><script language="javascript" 
+
+src="/cfweb/Scripts/json2.min.js" type="text/javascript"></script><!
+
+[endif]-->
+    <script language="javascript" src="/cfweb/Scripts/personalreco.js" 
+
+type="text/javascript"></script>
+    
+    <script type="text/javascript" src=" 
+
+http://forum.cmbchina.com/cmbwebshare/Scripts/CmbWebShare.js "></script>
+
+    
+</head>
+<body>
+    <form name="aspnetForm" method="post" action="prodvalue.aspx?
+
+PrdType=T0026&amp;PrdCode=8193" id="aspnetForm">
+<div>
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" 
+
+value="/wEPDwULLTE2NjAxMDU4NTAPZBYCZg9kFgICAw9kFgICBw9kFgQCAQ9kFgJmDxYCH
+
+gtfIUl0ZW1Db3VudAIBFgJmD2QWAmYPFQMEODE5Myrmi5vllYbpk7booYzlpKnmt7vph5Hnq
+
+LPlgaXlnovnkIbotKLorqHliJIe5aSp5re76YeR56iz5YGl5Z6L55CG6LSi6K6h5YiSZAIFD
+
+2QWEGYPFgIfAAIKFhRmD2QWAmYPFQMFVDAwMjkAEuaXpeebiuaciOmRq+ezu
+
++WIl2QCAQ9kFgJmDxUDBVQwMDI4ABLmtbflpJblr7vlrp3ns7vliJdkAgIPZBYCZg8VAwVUM
+
+DAyNwAS5q2l5q2l55Sf6YeR57O75YiXZAIDD2QWAmYPFQMFVDAwMjYPc2VsZWN0ZWQ9J3Ryd
+
+WUnFeWkqea3u
+
++mHkeeQhui0ouiuoeWIkmQCBA9kFgJmDxUDBVQwMDE4ABjnqLPnm4rns7vliJfnkIbotKLku
+
+qflk4FkAgUPZBYCZg8VAwVUMDAxMwAb6YeR6JG16Iqx5aKe5Yip57O75YiX5Lqn5ZOBZAIGD
+
+2QWAmYPFQMFVDAwMDEAFeWRqOWRqOWPkeeQhui0ouS6p
+
++WTgWQCBw9kFgJmDxUDBVQwMDA4ABXml6Xml6Xnm4jnkIbotKLkuqflk4FkAggPZBYCZg8VA
+
+wVUMDAwNgAY5bKB5pyI5rWB6YeR55CG6LSi5Lqn5ZOBZAIJD2QWAmYPFQMFVDAwMDMAFeaXp
+
+eaXpemHkeeQhui0ouS6p
+
++WTgWQCAg8WAh4HVmlzaWJsZWdkAgMPFgIfAWhkAgQPFgIfAWhkAgUPFgQfAAIKHwFnFhQCA
+
+Q9kFgRmDxUEBDgxOTMS5aSp5re76YeR56iz5YGl5Z6LBjEuMDQwMQgyMDE1MDYxNWQCAQ8VA
+
+QQ4MTkzZAICD2QWBGYPFQQEODE5MxLlpKnmt7vph5HnqLPlgaXlnosGMS4wMzk2CDIwMTUwN
+
+jEyZAIBDxUBBDgxOTNkAgMPZBYEZg8VBAQ4MTkzEuWkqea3u+mHkeeos
+
++WBpeWeiwYxLjAzOTQIMjAxNTA2MTFkAgEPFQEEODE5M2QCBA9kFgRmDxUEBDgxOTMS5aSp5
+
+re76YeR56iz5YGl5Z6LBjEuMDM5MggyMDE1MDYxMGQCAQ8VAQQ4MTkzZAIFD2QWBGYPFQQEO
+
+DE5MxLlpKnmt7vph5HnqLPlgaXlnosGMS4wMzkwCDIwMTUwNjA5ZAIBDxUBBDgxOTNkAgYPZ
+
+BYEZg8VBAQ4MTkzEuWkqea3u+mHkeeos
+
++WBpeWeiwYxLjAzODkIMjAxNTA2MDhkAgEPFQEEODE5M2QCBw9kFgRmDxUEBDgxOTMS5aSp5
+
+re76YeR56iz5YGl5Z6LBjEuMDM4NAgyMDE1MDYwNWQCAQ8VAQQ4MTkzZAIID2QWBGYPFQQEO
+
+DE5MxLlpKnmt7vph5HnqLPlgaXlnosGMS4wMzgyCDIwMTUwNjA0ZAIBDxUBBDgxOTNkAgkPZ
+
+BYEZg8VBAQ4MTkzEuWkqea3u+mHkeeos
+
++WBpeWeiwYxLjAzODEIMjAxNTA2MDNkAgEPFQEEODE5M2QCCg9kFgRmDxUEBDgxOTMS5aSp5
+
+re76YeR56iz5YGl5Z6LBjEuMDM3OQgyMDE1MDYwMmQCAQ8VAQQ4MTkzZAIGDxYCHwFoZAIMD
+
+xYCHgRUZXh0ZWQCDQ8WAh8BaGRksXUrpMLBNLg/o5hhQ2WtJ1SFjto=" />
+</div>
+
+<div>
+
+	<input type="hidden" name="__EVENTVALIDATION" 
+
+id="__EVENTVALIDATION" 
+
+value="/wEWBQKEndOKBgKGyv2OAwKng9KIAQKFxraJCAKN6e/hArjlGylWQdYSvpfyfQzKk
+
++46GdCf" />
+</div>
+    
+<div id="top_bar">
+    <div style="padding-top: 6px; text-align:center;">
+        <DIV class=site_link>
+<UL>
+<LI class=first><A href="http://www.cmbchina.com/" target=_blank>一网通
+
+主页</A> | </LI>
+<LI><A href="http://fx.cmbchina.com/" target=_blank>外汇</A> | </LI>
+<LI><A href="http://gold.cmbchina.com/" target=_blank>黄金</A> | </LI>
+<LI><A href="http://info.cmbchina.com/" target=_blank>证券</A> | </LI>
+<LI><A href="http://fund.cmbchina.com/" target=_blank>基金</A> | </LI>
+<LI><A href="http://www.cmbchina.com/cfweb/Personal/Default.aspx" 
+
+target=_blank>理财产品</A> | </LI>
+<LI><A href="http://cmbchina.cigna-cmc.com/" target=_blank>保险</A> | 
+
+</LI>
+<LI><A href="http://futures.cmbchina.com/" target=_blank>期货</A> | 
+
+</LI>
+<LI class=liright><A href="http://www.cmbchina.com/About/SiteMap.aspx" 
+
+target=_blank>网站导航 </A></LI>
+<LI class=liright><A 
+
+href="https://forum.cmbchina.com/cmu/icslogin.aspx?
+
+from=B&amp;logincmu=0" target=_blank>在线客服</A> | </LI>
+<LI class=liright><A href="https://user.cmbchina.com/iaion/iProduct/" 
+
+target=_blank>我的一网通</A> | </LI>
+<LI class=liright><A 
+
+href="https://user.cmbchina.com/User/ChooseRegisterType?returnUrl=%2f" 
+
+target=_blank>注册</A> | </LI>
+<LI class=liright><A href="https://user.cmbchina.com/iaion/iProduct/" 
+
+target=_blank>一网通登录</A> | </LI></UL></DIV>
+<STYLE type=text/css>  
+.site_link { width:950px; margin:0px auto; padding:0px; font-size:12px; 
+
+font-family:宋体; color:#cccccc; text-align:center; }  
+.site_link ul { margin:0px 14px; padding:0px; overflow:hidden;} 
+.site_link li { margin:0px 2px 0px 5px; padding:0px; display:inline; 
+
+float:left;}
+.site_link li.liright {float:right;}
+.site_link a:link { font-size:12px; color:#333333; text-decoration:none; 
+
+}  
+.site_link a:visited { font-size:12px; color:#333333; text-
+
+decoration:none; }  
+.site_link a:hover { font-size:12px; color:#FF0000; text-
+
+decoration:none; }  
+  </STYLE>
+    </div>
+</div>
+
+    
+<script language="javascript" type="text/javascript" src=" 
+
+http://live.cmbchina.com/webpages/cmbsearch/cmbsearch.js "
+	charset="GB2312"></script>
+<table cellspacing="0" align="center" class="FrameTable">
+    <tr>
+        <td>
+            <a href="http://www.cmbchina.com" target=_blank 
+
+class="mainlogo"> 
+            </a>
+        </td>
+        <td>
+           
+        </td>
+    </tr>
+</table>
+    
+<div class="FrameTable">
+    <div class="menubg">
+        <div class="main_menu">
+            <ul>
+                <li class="MenuLeftspace">&nbsp;</li>
+                
+                <li class="MenuLi"><a 
+
+href="/cfweb/personal/default.aspx" class='CurMainMenu'>
+                    个人理财产品</a> </li>
+                <li>
+                    <div class="mainMenu_Spacer">
+                    </div>
+                </li>
+                <li class="MenuLi"><a 
+
+href="/cfweb/Corporate/default.aspx" class='mainmenu'>
+                    公司理财产品</a> </li>
+                <li>
+                    <div class="mainMenu_Spacer">
+                    </div>
+                </li>
+                <li class="MenuLi"><a 
+
+href="/cfweb/Financial/default.aspx" class='mainmenu'>
+                    银和理财产品</a> </li>
+                <li>
+                    <div class="mainMenu_Spacer">
+                    </div>
+                </li>
+                <li class="MenuLi"><a 
+
+href="http://info.cmbchina.com/Financing/?channel=Financing&topic=Bank"  
+
+target="_blank" class="mainmenu">
+                    理财资讯</a> </li>
+                <li>
+                    <div class="mainMenu_Spacer">
+                    </div>
+                </li>
+                <li class="MenuRightspace">&nbsp;</li>
+                <li></li>
+            </ul>
+        </div>
+        <div class="main_online">
+            <img src="/cfweb/images/main_95555.gif" /></div>
+    </div>
+ <div class="submenubottom"></div>
+</div>
+    
+           <script src="../Scripts/TimeCalendar.js" 
+
+type="text/javascript"></script>
+    <div id="container">
+        <div id="column_left">
+            
+<div class="leftMenu">
+    <div class="NavLinkHeader">
+        <span>个人理财产品</span></div>
+    <div class="NavLinkContent">
+        <div class="page">
+            <span class="txtspan"><a 
+
+href="/cfweb/personal/default.aspx">·产品列表</a> </span>
+        </div>
+         <div class="curpage">
+            <span class="txtspan"><a 
+
+href="/cfweb/personal/prodvalue.aspx">·产品净值</a> </span>
+        </div>
+         <div class="page">
+            <span class="txtspan"><a 
+
+href="/cfweb/personal/prodnotice.aspx">·产品公告</a> </span>
+        </div>
+      
+        <div class="page">
+            <span class="txtspan"><a 
+
+href="/cfweb/personal/bulletinlist.aspx">·理财视点</a> </span>
+        </div>
+        
+        <div class="page">
+            <span class="txtspan"><a 
+
+href="/cfweb/personal/ProdBySeries.aspx?code=010002">·焦点联动系列</a> 
+
+</span>
+        </div>
+         <div class="page">
+            <span class="txtspan"><a 
+
+href="/cfweb/personal/ProdBySeries.aspx?code=010003">·日日金系列</a> 
+
+</span>
+        </div>
+         <div class="page">
+            <span class="txtspan"><a 
+
+href="/cfweb/personal/ProdBySeries.aspx?code=010005">·安心回报系列</a> 
+
+</span>
+        </div>
+         <div class="page">
+            <span class="txtspan"><a 
+
+href="/cfweb/personal/ProdBySeries.aspx?code=010004">·新股申购系列</a> 
+
+</span>
+        </div>
+        <div class="page">
+            <span class="txtspan"><a 
+
+href="/cfweb/personal/ProdBySeries.aspx?code=010007">·招银进宝系列</a> 
+
+</span>
+        </div>
+         <div class="page">
+            <span class="txtspan"><a 
+
+href="/cfweb/personal/ProdBySeries.aspx?code=010008">·A股掘金系列</a> 
+
+</span>
+        </div>
+         <div class="page">
+            <span class="txtspan"><a 
+
+href="/cfweb/personal/ProdBySeries.aspx?code=010001">·海外寻宝系列</a> 
+
+</span>
+        </div>
+	<div class="page">
+            <span class="txtspan"><a 
+
+href="/cfweb/personal/ProdBySeries.aspx?code=010011">·A009 结构性存款系
+
+列</a> </span>
+        </div>
+        
+       
+      
+    </div>
+    
+    <div style="margin-bottom:8px;"></div>
+    <div class="NavLinkHeader">
+        <span>我的理财产品</span></div>
+    <div class="NavLinkContent"> 
+        <div class="page">
+            <span class="txtspan"><a 
+
+href="https://user.cmbchina.com/iaion/iproduct/myfinancial.aspx" 
+
+target="_blank">·我收藏的理财产品</a> </span>
+        </div>     
+        <div class="page">
+            <span class="txtspan"><a 
+
+href="https://user.cmbchina.com/iaion/iproduct/myfinancial.aspx?
+
+t=comment" target="_blank">·我评论的理财产品</a> </span>
+        </div>   
+    </div>
+    
+    <div style="margin-bottom:8px;"></div>
+    <div class="NavLinkHeader">
+        <span>交易渠道</span></div>
+    <div class="NavLinkContent"> 
+        <div class="page">
+            <span class="txtspan"><a href="javascript:hbwindows();">·个
+
+人银行大众版</a> </span>
+        </div>
+        <div class="page">
+            <span class="txtspan"><a href="javascript:EWallet();">·个人
+
+银行专业版</a></span>
+        </div>
+        <div class="page">
+            <span class="txtspan"><a 
+
+href="http://www.cmbchina.com/mbankweb" target="_blank">
+                ·手机银行</a></span>
+        </div>        
+    </div>  
+    
+    <div style="margin-bottom:8px;"></div>
+    <div class="NavLinkHeader">
+        <span>最近浏览</span>
+    </div>
+    <div> 
+         <ul>
+           
+                    <li class="noBorder">
+                        <a href="./productdetail.aspx?code=8193" 
+
+target="_blank" title=招商银行天添金稳健型理财计划>
+                           ·天添金稳健型理财计划
+                        </a>
+                    </li> 
+                
+        </ul>  
+        
+<div>
+				<a id="PDFDownload" 
+
+href="http://www.adobe.com/cn/products/acrobat/readstep2.html"
+					target="_blank">PDF阅读器下载
+
+</a></div>
+<style type="text/css">
+#PDFDownload
+{
+	background-image:url(../images/pdflogo.gif);	
+	background-repeat:no-repeat;	
+	vertical-align:middle;	
+	background-position:left;
+	height:46px;
+	float:left;
+	margin-left:35px;
+	padding-left:50px;
+	padding-top:28px;	
+}
+</style>
+    </div>
+</div>
+
+
+
+        </div>
+        <div id="column_content">
+            
+<div id="MainBanner">
+ <A href="http://95555.cmbchina.com/loan" target=_blank><IMG border=0 
+
+src="http://images.cmbchina.com/cmbcms/201302/4785805b-14cf-4907-93b7-
+
+6b26c6d95ea2.jpg" width=721 height=130></A>
+</div>
+
+
+            <div class="space8">
+            </div>
+            <div class="c_header">
+                <span>产品净值</span>
+            </div>
+            <div class="c_content">
+                
+<div style="margin: 8px;">
+    理财产品类别：
+    <select id="ddlFinProductType" name="ddlFinProductType" 
+
+onchange="ChangeFinaType(this);">        
+                <option value='T0029' >
+                    日益月鑫系列
+                </option>
+            
+                <option value='T0028' >
+                    海外寻宝系列
+                </option>
+            
+                <option value='T0027' >
+                    步步生金系列
+                </option>
+            
+                <option value='T0026' selected='true'>
+                    天添金理财计划
+                </option>
+            
+                <option value='T0018' >
+                    稳益系列理财产品
+                </option>
+            
+                <option value='T0013' >
+                    金葵花增利系列产品
+                </option>
+            
+                <option value='T0001' >
+                    周周发理财产品
+                </option>
+            
+                <option value='T0008' >
+                    日日盈理财产品
+                </option>
+            
+                <option value='T0006' >
+                    岁月流金理财产品
+                </option>
+            
+                <option value='T0003' >
+                    日日金理财产品
+                </option>
+            
+    </select>
+    产品代码：<input name="ctl00$content$UCProdValue1$TBKeyword" 
+
+type="text" value="8193" maxlength="8" 
+
+id="ctl00_content_UCProdValue1_TBKeyword" onchange="keywordChange()" 
+
+style="width:150px;" /></span>
+    
+    <input type="button" id="btnSearch" onclick="Search()" height="22px" 
+
+value="确 定" />
+</div>
+<div id="ctl00_content_UCProdValue1_divDateBlock" style="margin-top:5px; 
+
+margin-bottom:15px; margin-left:8px">
+    起始日期：<input name="ctl00$content$UCProdValue1$startdate" 
+
+type="text" id="ctl00_content_UCProdValue1_startdate" class="bgwhite" 
+
+onclick="getCMBCalendar('yyyymmdd', 'P', new Date()).show(this);" 
+
+readonly="readonly" />
+    结束日期：<input name="ctl00$content$UCProdValue1$enddate" 
+
+type="text" id="ctl00_content_UCProdValue1_enddate" class="bgwhite" 
+
+onclick="getCMBCalendar('yyyymmdd', 'P', new Date()).show(this);" 
+
+readonly="readonly" />
+    <input type="button" id="btndatesearch" value="搜索" 
+
+onclick="BBSJSearch()" />
+</div>
+<div class="c_list" id="cList" style="margin: 0;">
+    
+    <table class="ProductTable">
+        
+        
+        
+                <tr align="center">
+                    <th valign="middle" style="width: 10%;">
+                        产品代码
+                    </th>
+                    <th valign="middle" style="width: 30%;">
+                        产品名称
+                    </th>
+                    <th valign="middle" style="width: 20%;">
+                        产品净值
+                    </th>
+                    <th valign="middle" style="width: 10%;">
+                        净值日期
+                    </th>
+                      
+                </tr>
+            
+                <tr align="left" valign="middle">
+                    <td align="center" valign="middle">
+                        8193
+                    </td>
+                    <td align="center" valign="middle">
+                        天添金稳健型
+                    </td>
+                    <td align="center" valign="middle">
+                        1.0401
+                    </td>
+                    <td align="center" valign="middle">
+                        20150615
+                    </td>
+                      
+                </tr>
+            
+                <tr align="left" valign="middle">
+                    <td align="center" valign="middle">
+                        8193
+                    </td>
+                    <td align="center" valign="middle">
+                        天添金稳健型
+                    </td>
+                    <td align="center" valign="middle">
+                        1.0396
+                    </td>
+                    <td align="center" valign="middle">
+                        20150612
+                    </td>
+                      
+                </tr>
+            
+                <tr align="left" valign="middle">
+                    <td align="center" valign="middle">
+                        8193
+                    </td>
+                    <td align="center" valign="middle">
+                        天添金稳健型
+                    </td>
+                    <td align="center" valign="middle">
+                        1.0394
+                    </td>
+                    <td align="center" valign="middle">
+                        20150611
+                    </td>
+                      
+                </tr>
+            
+                <tr align="left" valign="middle">
+                    <td align="center" valign="middle">
+                        8193
+                    </td>
+                    <td align="center" valign="middle">
+                        天添金稳健型
+                    </td>
+                    <td align="center" valign="middle">
+                        1.0392
+                    </td>
+                    <td align="center" valign="middle">
+                        20150610
+                    </td>
+                      
+                </tr>
+            
+                <tr align="left" valign="middle">
+                    <td align="center" valign="middle">
+                        8193
+                    </td>
+                    <td align="center" valign="middle">
+                        天添金稳健型
+                    </td>
+                    <td align="center" valign="middle">
+                        1.0390
+                    </td>
+                    <td align="center" valign="middle">
+                        20150609
+                    </td>
+                      
+                </tr>
+            
+                <tr align="left" valign="middle">
+                    <td align="center" valign="middle">
+                        8193
+                    </td>
+                    <td align="center" valign="middle">
+                        天添金稳健型
+                    </td>
+                    <td align="center" valign="middle">
+                        1.0389
+                    </td>
+                    <td align="center" valign="middle">
+                        20150608
+                    </td>
+                      
+                </tr>
+            
+                <tr align="left" valign="middle">
+                    <td align="center" valign="middle">
+                        8193
+                    </td>
+                    <td align="center" valign="middle">
+                        天添金稳健型
+                    </td>
+                    <td align="center" valign="middle">
+                        1.0384
+                    </td>
+                    <td align="center" valign="middle">
+                        20150605
+                    </td>
+                      
+                </tr>
+            
+                <tr align="left" valign="middle">
+                    <td align="center" valign="middle">
+                        8193
+                    </td>
+                    <td align="center" valign="middle">
+                        天添金稳健型
+                    </td>
+                    <td align="center" valign="middle">
+                        1.0382
+                    </td>
+                    <td align="center" valign="middle">
+                        20150604
+                    </td>
+                      
+                </tr>
+            
+                <tr align="left" valign="middle">
+                    <td align="center" valign="middle">
+                        8193
+                    </td>
+                    <td align="center" valign="middle">
+                        天添金稳健型
+                    </td>
+                    <td align="center" valign="middle">
+                        1.0381
+                    </td>
+                    <td align="center" valign="middle">
+                        20150603
+                    </td>
+                      
+                </tr>
+            
+                <tr align="left" valign="middle">
+                    <td align="center" valign="middle">
+                        8193
+                    </td>
+                    <td align="center" valign="middle">
+                        天添金稳健型
+                    </td>
+                    <td align="center" valign="middle">
+                        1.0379
+                    </td>
+                    <td align="center" valign="middle">
+                        20150602
+                    </td>
+                      
+                </tr>
+            
+        
+        
+        
+    </table>
+</div>
+
+<input name="ctl00$content$UCProdValue1$hdTypeId" type="hidden" 
+
+id="ctl00_content_UCProdValue1_hdTypeId" value="T0026" />
+<div style="clear: both">
+</div>
+
+<div class="pager">
+    <div class="pager_left">
+        <span class="nolink">共<span class="pageText">175</span> 条记录
+
+&nbsp;&nbsp;&nbsp;&nbsp;每页<span
+            class="pageText">
+            10
+        </span>条&nbsp;&nbsp;&nbsp;&nbsp;页次：<span class="pageText">1
+            /
+            18
+        </span></span>&nbsp;&nbsp;</div>
+    <div class="pager_right">
+        
+        <span class="nolink">首页</span> <span class="nolink">上一页
+
+</span> <a href="/cfweb/personal/prodvalue.aspx?
+
+PrdType=T0026&PrdCode=8193&PageNo=2">
+            下一页</a> <a href="/cfweb/personal/prodvalue.aspx?
+
+PrdType=T0026&PrdCode=8193&PageNo=18">尾页</a>
+        
+    </div>
+</div>
+
+<div class="red" style="margin-top:10px;border:0px solid 
+
+#ccc;padding:10px;">
+
+</div>
+
+
+
+<script type="text/javascript">
+var keyword=document.getElementById
+
+("ctl00_content_UCProdValue1_TBKeyword").value;
+var selectitem=document.getElementById("ddlFinProductType").value;
+function keywordChange(){
+keyword=document.getElementById
+
+("ctl00_content_UCProdValue1_TBKeyword").value;
+}
+
+function BBSJSearch()
+{
+ 
+  var start = document.getElementById
+
+("ctl00_content_UCProdValue1_startdate").value;
+  var end = document.getElementById
+
+("ctl00_content_UCProdValue1_enddate").value;
+  
+    if(!compareDay(start,end))
+    {
+        alert("结束日期不能小于起始日期！");
+        return;
+    }
+  window.location =  "/cfweb/"+"personal"+"/prodvalue.aspx?PrdType="+ 
+
+"T0026" + "&PrdCode="+"8193"+"&start="+start+"&end="+end;
+}
+</script>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+    function ChangeFinaType(obj) {
+        window.location = "/cfweb/personal/prodvalue.aspx?PrdType=" + 
+
+obj.value;
+    }
+    function Search(){
+    var PrdParam="";
+    if(keyword!=""&& keyword!=null){
+    PrdParam = "&PrdCode=" + keyword;
+    } 
+    window.location="/cfweb/personal/prodvalue.aspx?PrdType=" 
+
++selectitem +PrdParam;
+    }
+    </script>
+
+
+    <div class="spacer">
+    </div>
+    <div style="margin-top:0px; clear: both;">
+        <DIV id=footer>
+<UL>
+<LI><A href="http://www.cmbchina.com/webpages/certificate.htm" 
+
+target=_blank>安全说明</A> </LI>
+<LI>| </LI>
+<LI><A href="http://www.cmbchina.com/about/?pageid=webnotice" 
+
+target=_blank>网站声明</A> </LI>
+<LI>| </LI>
+<LI><A href="http://www.cmbchina.com/about/?pageid=privacy" 
+
+target=_blank>隐私保密条款</A> </LI>
+<LI>| </LI>
+<LI><A href="http://www.cmbchina.com/about/sitemap.aspx" target=_blank>
+
+网站地图</A> </LI>
+<LI>| </LI>
+<LI><A href="http://www.cmbchina.com/about/?pageid=goodlink" 
+
+target=_blank>友情链接</A> </LI>
+<LI>| </LI>
+<LI><A href="javascript:addFav(location.href, document.title);">加入收藏
+
+夹</A> </LI>
+<LI>| </LI>
+<LI><A href="http://career.cmbchina.com/" target=_blank>人才招聘</A> 
+
+</LI>
+<LI>| </LI>
+<LI><A href="http://www.cmbchina.com/mbankweb/site/" target=_blank>手机
+
+一网通</A> </LI></UL></DIV>
+<DIV id=phonetips><SPAN>服务热线：95555&nbsp;&nbsp;&nbsp; </SPAN><SPAN>
+
+境外服务热线：86-755-84391000</SPAN><BR><SPAN>信用卡服务热线：400-820-
+
+5555&nbsp;&nbsp;&nbsp;</SPAN><SPAN>&nbsp;&nbsp;&nbsp;企业年金服务热线：
+
+800-830-8855</SPAN><BR><SPAN>金葵花贵宾服务专线：40088-
+
+95555</SPAN><SPAN>钻石贵宾服务专线：40068-95555</SPAN><SPAN>私人银行服务
+
+专线：40066-95555</SPAN> </DIV>
+<DIV id=co>
+<DIV class=wangan><A title=网络安全标志 
+
+href="http://www.cmbchina.com/webpages/cmbsafe/index.htm" 
+
+target=_blank></A></DIV>
+<DIV class=gdsz><A title=网络安全标志 
+
+href="http://www.sznet110.gov.cn/netalarm/index.jsp" 
+
+target=_blank></A></DIV>
+<DIV class=copyright><SPAN>招商银行一网通&nbsp;&nbsp;创建于一九九七年
+
+</SPAN> <BR>?<SPAN>&nbsp;2013&nbsp;&nbsp;招商银行&nbsp;&nbsp;版权所有
+
+</SPAN> <BR><SPAN>ICP许可证号&nbsp;&nbsp;粤B2-20040497</SPAN> 
+
+</DIV></DIV>
+<STYLE type=text/css>#footer {
+ BACKGROUND-IMAGE: url(http://www.cmbchina.com/images/bottom_bg.gif); 
+
+MARGIN: 8px auto 0px; WIDTH: 950px; BACKGROUND-REPEAT: repeat-x; HEIGHT: 
+
+30px; OVERFLOW: hidden
+}
+#footer UL {
+ LIST-STYLE-TYPE: none; MARGIN: 0px auto; WIDTH: 594px; OVERFLOW: hidden
+}
+#footer UL LI {
+ LINE-HEIGHT: 30px; MARGIN: 0px 4px; DISPLAY: inline; FONT-FAMILY: 宋体, 
+
+Arial, Verdana, Helvetica, Sans-Serif; FLOAT: left; COLOR: #ffffff; 
+
+FONT-SIZE: 12px
+}
+#footer A:link {
+ COLOR: #ffffff; TEXT-DECORATION: none
+}
+#footer A:visited {
+ COLOR: #ffffff; TEXT-DECORATION: none
+}
+#footer A:hover {
+ COLOR: #ff0000; TEXT-DECORATION: none
+}
+#phonetips {
+ TEXT-ALIGN: center; LINE-HEIGHT: 20px; MARGIN: 12px auto 0px; OVERFLOW: 
+
+hidden
+}
+#phonetips SPAN {
+ MARGIN: 0px 8px; FONT-FAMILY: Arial, Verdana, Helvetica, Sans-Serif, 宋
+
+体; COLOR: #333333; FONT-SIZE: 12px; OVERFLOW: hidden
+}
+#co {
+ MARGIN: 6px auto 0px; WIDTH: 330px; OVERFLOW: hidden
+}
+#co .wangan {
+ MARGIN-TOP: 14px; FLOAT: left; MARGIN-RIGHT: 10px
+}
+#co .wangan A {
+ TEXT-INDENT: -9000px; WIDTH: 40px; DISPLAY: block; BACKGROUND: url
+
+(http://file.cmbchina.com/cmbcms/201112/4e215928-e641-479a-84fe-
+
+10376d4acbdf.gif) no-repeat; HEIGHT: 54px
+}
+#co .gdsz A {
+ TEXT-INDENT: -9000px; WIDTH: 60px; DISPLAY: block; BACKGROUND: url
+
+(http://file.cmbchina.com/cmbcms/201112/2e2154ed-ce40-48b0-9086-
+
+e7e17a272e21.gif) no-repeat; HEIGHT: 80px
+}
+#co .gdsz {
+ FLOAT: left
+}
+#co .copyright {
+ TEXT-ALIGN: center; LINE-HEIGHT: 18px; MARGIN-TOP: 14px; FONT-FAMILY: 
+
+Arial, Verdana, Helvetica, Sans-Serif, 宋体; FLOAT: right; COLOR: 
+
+#333333; FONT-SIZE: 12px
+}
+</STYLE>
+
+<SCRIPT type=text/javascript>
+function addFav(url, title) {
+ try {
+   if (document.all) {
+      window.external.addFavorite(url, title); 
+     } else if (window.sidebar) {
+      window.sidebar.addPanel(title, url, ""); 
+     } else {
+      alert('抱歉！您的浏览器不支持直接添加收藏夹。');
+     } 
+ } catch(e) {
+      alert('抱歉！您的浏览器不支持直接添加收藏夹。');
+ }
+}
+</SCRIPT>
+
+ 
+<script language="javascript">
+    function AddFavorite(sURL, sTitle) {
+        try {
+            window.external.addFavorite(sURL, sTitle);
+        }
+        catch (e) {
+            try {
+                window.sidebar.addPanel(sTitle, sURL, "");
+            }
+            catch (e) {
+            }
+        }
+    }
+    if (window.screen.width > 1024) {
+        document.body.style.background = "#fff url
+
+(http://www.cmbchina.com/images/bg.gif) no-repeat center top";
+    }
+    else {
+        document.body.style.background = "#fff";
+        document.getElementById("top_bar").style.width = "100%";
+    }
+</script>
+<script language="javascript" type="text/javascript" 
+
+src="/cfweb/scripts/sdc_web.js"></script>
+    </div>
+    </form>
+    <script language="javascript" type="text/javascript">
+        personalreco.RecordBrowsehistory();
+    </script>
+</body>
+</html>
