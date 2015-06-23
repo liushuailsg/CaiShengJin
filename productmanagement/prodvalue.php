@@ -9,10 +9,10 @@ header("Content-type: text/html; charset=utf-8");
 $rootDir = '../';
 
 //配置数据库
-//$cfg["dbhost"]="w.rdc.sae.sina.com.cn:3307"; //数据库主机名
-//$cfg["dbuser"]="yo5jy4wk4o"; //数据库用户名
-//$cfg["dbpass"]="xkixj1yiw5xz23100ylmmkxml0jl2yhm53h2l2lx"; //数据库密码
-//$cfg["dbname"]="app_chelseapp"; //数据库名称
+$cfg["dbhost"]="localhost:3306"; //数据库主机名
+$cfg["dbuser"]="root"; //数据库用户名
+$cfg["dbpass"]="root"; //数据库密码
+$cfg["dbname"]="CaiShengJin"; //数据库名称
 //$cfg["website"]="http://liushuailsg.sinaapp.com/chelsea"; //网站域名
 //$cfg["webtitle"]="chelsea"; //系统名称
 
@@ -22,6 +22,8 @@ require_once($rootDir . "lib/func.class.php"); //核心类
 require_once($rootDir . "ContentInfo.php");
 //echo '<meta http-equiv=Content-Type content="text/html;charset=utf-8">';
 //error_reporting(E_ALL & ~E_NOTICE);
+$str='hello 你好'.'</br>';
+echo $str;
 
 ?>
 
@@ -39,6 +41,8 @@ $pageNomboer = 2;
 $urlTarget = $urlTarget . '&PageNo=' . $pageNomboer;
 echo $urlTarget;
 echo '</br>';
+
+//$urlTarget = "../prodvalue.html";
 
 //建立Dom对象，分析HTML文件；
 $htmDoc = new DOMDocument;
@@ -99,6 +103,69 @@ foreach ($tables_list as $table)
             } else {
                 echo $content->PrdCode.' '.$content->PrdName.' '.$content->Content.' '.$content->Time . '</br>';
             }
+            
+            $encode = strconv($content->PrdName);
+            echo '$encode = ' . $encode . '</br>';
         }
+        
+        global $db;
+        $del_sql = "delete from original_product_detail";
+        $db->query($del_sql);
+        
+        foreach ($contentList as $content) {
+            $is_label = $content->isLabel;
+            if ($content->isLabel) {
+                preg_match_all("/[\x{4e00}-\x{9fa5}]+/u", $content->PrdCode, $chinese) . '</br>';
+                $content_code = implode("", $chinese[0]);
+                preg_match_all("/[\x{4e00}-\x{9fa5}]+/u", $content->PrdName, $chinese) . '</br>';
+                $content_name = implode("", $chinese[0]);
+                preg_match_all("/[\x{4e00}-\x{9fa5}]+/u", $content->Content, $chinese) . '</br>';
+                $content_content = implode("", $chinese[0]);
+                preg_match_all("/[\x{4e00}-\x{9fa5}]+/u", $content->Time, $chinese) . '</br>';
+                $content_time = implode("", $chinese[0]);
+            } else {
+                $content_code = intval($content->PrdCode);
+                preg_match_all("/[\x{4e00}-\x{9fa5}]+/u", $content->PrdName, $chinese) . '</br>';
+                $content_name = implode("", $chinese[0]);
+                $content_content = strval(floatval($content->Content));
+                $content_time = intval($content->Time);
+            }
+            
+            $insert_sql = "insert into original_product_detail (code, name, net_worth, date, is_label) values
+                    ('$content_code', '$content_name', '$content_content', '$content_time', '$is_label')";
+            $bet_result = $db->query($insert_sql);
+            if (!$bet_result)
+            {
+                $ret = "插入失败" . '</br>';
+            } else {
+                $ret = "插入 ok" . '</br>';
+            }
+            echo $ret;
+        }
+        
+        $eid_query = "SELECT * FROM `original_product_detail`";
+        $id_result = $db->query($eid_query);
+        echo '$result is ' . $id_result . '</br>';
+        $eid_arr = $db->fetchAll();
+        $eid_count = count($eid_arr, COUNT_NORMAL);
+        echo 'count is ' . $eid_count . '</br>';
     }
 ?>
+
+<?php
+function strconv($str) {
+    $charset =  mb_detect_encoding($str, array('ASCII', 'GB2312', 'GBK', 'UTF-8'));
+    $charset = strtolower($charset);
+    echo '$charset is ' . $charset . '</br>';
+    if('cp936' == $charset) {
+        $charset='GB2312';
+    }
+    if("utf-8" != $charset) {
+        echo '$charset is ' . $charset . '</br>';
+//        $str = iconv($charset, "UTF-8//IGNORE", $str);
+        $str = iconv($charset, "UTF-8", $str);
+    }
+    return $str;
+}
+?>
+

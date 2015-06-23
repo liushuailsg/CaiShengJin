@@ -27,13 +27,14 @@ class mysql
     //      如果想手动连接去掉连接函数
     //======================================
     function mysql($host,$user,$pwd,$dbName)
-    {	if(empty($host) || empty($user) || empty($dbName))
-    $this->halt("数据库主机地址,用户名或数据库名称不完全,请检查!");
-    $this->host    = $host;
-    $this->user    = $user;
-    $this->pwd     = $pwd;
-    $this->dbName  = $dbName;
-    $this->connect();//设置为自动连接
+    {
+        if(empty($host) || empty($user) || empty($dbName))
+            $this->halt("数据库主机地址,用户名或数据库名称不完全,请检查!");
+        $this->host    = $host;
+        $this->user    = $user;
+        $this->pwd     = $pwd;
+        $this->dbName  = $dbName;
+        $this->connect();//设置为自动连接
     }
     //======================================
     // 函数: connect($host,$user,$pwd,$dbName)
