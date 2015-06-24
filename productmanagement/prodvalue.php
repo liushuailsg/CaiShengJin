@@ -104,8 +104,6 @@ foreach ($tables_list as $table)
                 echo $content->PrdCode.' '.$content->PrdName.' '.$content->Content.' '.$content->Time . '</br>';
             }
             
-            $encode = strconv($content->PrdName);
-            echo '$encode = ' . $encode . '</br>';
         }
         
         global $db;
@@ -114,19 +112,21 @@ foreach ($tables_list as $table)
         
         foreach ($contentList as $content) {
             $is_label = $content->isLabel;
+            $content->PrdName = str_utf8_decode($content->PrdName);
+            preg_match_all("/[\x{4e00}-\x{9fa5}]+/u", $content->PrdName, $chinese) . '</br>';
+            $content_name = implode("", $chinese[0]);
             if ($content->isLabel) {
+                $content->PrdCode = str_utf8_decode($content->PrdCode);
                 preg_match_all("/[\x{4e00}-\x{9fa5}]+/u", $content->PrdCode, $chinese) . '</br>';
                 $content_code = implode("", $chinese[0]);
-                preg_match_all("/[\x{4e00}-\x{9fa5}]+/u", $content->PrdName, $chinese) . '</br>';
-                $content_name = implode("", $chinese[0]);
+                $content->Content = str_utf8_decode($content->Content);
                 preg_match_all("/[\x{4e00}-\x{9fa5}]+/u", $content->Content, $chinese) . '</br>';
                 $content_content = implode("", $chinese[0]);
+                $content->Time = str_utf8_decode($content->Time);
                 preg_match_all("/[\x{4e00}-\x{9fa5}]+/u", $content->Time, $chinese) . '</br>';
                 $content_time = implode("", $chinese[0]);
             } else {
                 $content_code = intval($content->PrdCode);
-                preg_match_all("/[\x{4e00}-\x{9fa5}]+/u", $content->PrdName, $chinese) . '</br>';
-                $content_name = implode("", $chinese[0]);
                 $content_content = strval(floatval($content->Content));
                 $content_time = intval($content->Time);
             }
@@ -153,18 +153,26 @@ foreach ($tables_list as $table)
 ?>
 
 <?php
-function strconv($str) {
+function str_conv_utf8($str) {
     $charset =  mb_detect_encoding($str, array('ASCII', 'GB2312', 'GBK', 'UTF-8'));
     $charset = strtolower($charset);
     echo '$charset is ' . $charset . '</br>';
     if('cp936' == $charset) {
-        $charset='GB2312';
+        $charset='GBK';
     }
     if("utf-8" != $charset) {
         echo '$charset is ' . $charset . '</br>';
 //        $str = iconv($charset, "UTF-8//IGNORE", $str);
         $str = iconv($charset, "UTF-8", $str);
     }
+//    $text = mb_convert_encoding($str, "UTF-8", array('ASCII', 'GB2312', 'GBK', 'UTF-8'));
+//    echo '$text = ' . $text . '</br>';
+    return $str;
+}
+
+function str_utf8_decode($str) {
+    $str = utf8_decode($str);
+    echo 'str_utf8_decode is ' . $str . '</br>';
     return $str;
 }
 ?>
