@@ -37,36 +37,56 @@ echo 'Product code is ' . $productCode;
 
 <?php
 $urlTarget = 'http://www.cmbchina.com/cfweb/personal/prodvalue.aspx?PrdType=T0026&PrdCode=' . $productCode;
-$pageNomboer = 2;
-$urlTarget = $urlTarget . '&PageNo=' . $pageNomboer;
+$pageNomboer = 0;
 echo $urlTarget;
 echo '</br>';
 
 //$urlTarget = "../prodvalue.html";
 
-//建立Dom对象，分析HTML文件；
-$htmDoc = new DOMDocument;
-$htmDoc->loadHTMLFile($urlTarget);
-$htmDoc->normalizeDocument();
+global $db;
+$del_sql = "delete from original_product_detail";
+$db->query($del_sql);
 
-//获得到此文档中每一个Table对象；
-$tables_list = $htmDoc->getElementsByTagName('table');
-
-foreach ($tables_list as $table)
-{
-    //得到Table对象的class属性
-    $tableProp = $table->getAttribute('class');
-    echo 'table list as ' . $tableProp . '</br>';
-    if ($tableProp == 'ProductTable') {
-        ParseFromDOMElement($table);
-    }
-    echo '---------------------------------------' . '</br>';
-}
+do {
+    echo '####################################### start ' . '</br>';
+    sleep(1);
+    $pageNomboer++;
+    $url = $urlTarget . '&PageNo=' . $pageNomboer;
+    echo $url . '</br>';
+    $condition = ParseFromHTMLFile($url);
+    echo 'which continue is ' . $condition . '</br>';
+    echo '####################################### end ' . '</br>';
+} while ($condition);
 
 ?>
 
 
 <?php
+
+    function ParseFromHTMLFile($url) {
+        //建立Dom对象，分析HTML文件；
+        $htmDoc = new DOMDocument;
+        $htmDoc->loadHTMLFile($url);
+        $htmDoc->normalizeDocument();
+        
+        //获得到此文档中每一个Table对象；
+        $tables_list = $htmDoc->getElementsByTagName('table');
+        $ret = false;
+        foreach ($tables_list as $table) {
+            //得到Table对象的class属性
+            $tableProp = $table->getAttribute('class');
+            echo 'table list as ' . $tableProp . '</br>';
+            if ($tableProp == 'ProductTable') {
+                $count = ParseFromDOMElement($table);
+                if ($count > 1) {
+                    $ret = true;
+                }
+            }
+            echo '---------------------------------------' . '</br>';
+        }
+        return $ret;
+    }
+    
     function ParseFromDOMElement(DOMElement $table) {
         echo 'ParseFromDOMElement.' . '</br>';
         
@@ -74,7 +94,7 @@ foreach ($tables_list as $table)
         
         if ($rows_list->length === 0) {
             echo 'rows list is empty!' . '</br>';
-            return;
+            return 0;
         } else {
             echo '$rows_list length is ' . $rows_list->length . '</br>';
         }
@@ -89,7 +109,7 @@ foreach ($tables_list as $table)
         
         if ($contentList->count() === 0) {
             echo 'content list is empty!' . '</br>';
-            return;
+            return 0;
         } else {
             echo '$contentList count is ' . $contentList->count() . '</br>';
         }
@@ -107,8 +127,8 @@ foreach ($tables_list as $table)
         }
         
         global $db;
-        $del_sql = "delete from original_product_detail";
-        $db->query($del_sql);
+//        $del_sql = "delete from original_product_detail";
+//        $db->query($del_sql);
         
         foreach ($contentList as $content) {
             $is_label = $content->isLabel;
@@ -129,18 +149,18 @@ foreach ($tables_list as $table)
                 $content_code = intval($content->PrdCode);
                 $content_content = strval(floatval($content->Content));
                 $content_time = intval($content->Time);
-            }
-            
-            $insert_sql = "insert into original_product_detail (code, name, net_worth, date, is_label) values
+                
+                $insert_sql = "insert into original_product_detail (code, name, net_worth, date, is_label) values
                     ('$content_code', '$content_name', '$content_content', '$content_time', '$is_label')";
-            $bet_result = $db->query($insert_sql);
-            if (!$bet_result)
-            {
-                $ret = "插入失败" . '</br>';
-            } else {
-                $ret = "插入 ok" . '</br>';
+                $bet_result = $db->query($insert_sql);
+                if (!$bet_result)
+                {
+                    $ret = "插入失败" . '</br>';
+                } else {
+                    $ret = "插入 ok" . '</br>';
+                }
+                //echo $ret;
             }
-            echo $ret;
         }
         
         $eid_query = "SELECT * FROM `original_product_detail`";
@@ -149,6 +169,8 @@ foreach ($tables_list as $table)
         $eid_arr = $db->fetchAll();
         $eid_count = count($eid_arr, COUNT_NORMAL);
         echo 'count is ' . $eid_count . '</br>';
+        
+        return $contentList->count();
     }
 ?>
 
@@ -172,7 +194,7 @@ function str_conv_utf8($str) {
 
 function str_utf8_decode($str) {
     $str = utf8_decode($str);
-    echo 'str_utf8_decode is ' . $str . '</br>';
+    //echo 'str_utf8_decode is ' . $str . '</br>';
     return $str;
 }
 ?>
