@@ -6,17 +6,12 @@
 header("Content-type: text/html; charset=utf-8");
 //session_start();
 //error_reporting(0);
+set_time_limit(200);
 $rootDir = '../';
 
-//配置数据库
-$cfg["dbhost"]="localhost:3306"; //数据库主机名
-$cfg["dbuser"]="root"; //数据库用户名
-$cfg["dbpass"]="root"; //数据库密码
-$cfg["dbname"]="CaiShengJin"; //数据库名称
-//$cfg["website"]="http://liushuailsg.sinaapp.com/chelsea"; //网站域名
-//$cfg["webtitle"]="chelsea"; //系统名称
 
 //引入类库及公共方法
+require_once($rootDir . "config.php"); //配置
 require_once($rootDir . "lib/mysql.class.php"); //数据类
 require_once($rootDir . "lib/func.class.php"); //核心类
 require_once($rootDir . "ContentInfo.php");
@@ -45,6 +40,8 @@ echo '</br>';
 
 global $db;
 $del_sql = "delete from original_product_detail";
+$db->query($del_sql);
+$del_sql = "delete from product_detail";
 $db->query($del_sql);
 
 do {
@@ -160,6 +157,18 @@ do {
                     $ret = "插入 ok" . '</br>';
                 }
                 //echo $ret;
+                $worth = floatval($content_content);
+                $date = date("Ymd", strtotime($content_time));
+                $insert_sql = "insert into product_detail (code, name, net_worth, date) values
+                        ('$content_code', '$content_name', '$worth', '$date')";
+                $bet_result = $db->query($insert_sql);
+                if (!$bet_result)
+                {
+                    $ret = "插入失败" . '</br>';
+                } else {
+                    $ret = "插入 ok" . '</br>';
+                }
+                echo $ret;
             }
         }
         

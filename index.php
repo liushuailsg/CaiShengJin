@@ -14,7 +14,15 @@
 <body>
 
 <?php
-require_once('csj.php');
+//session_start();
+//error_reporting(0);
+set_time_limit(200);
+$rootDir = './';
+require_once($rootDir . "config.php"); //配置
+require_once($rootDir . "lib/mysql.class.php"); //数据类
+require_once($rootDir . "lib/func.class.php"); //核心类
+require_once($rootDir . "ProductInfo.php");
+//require_once('csj.php');
 ?>
 
 <center>
@@ -26,17 +34,23 @@ require_once('csj.php');
                 <th valign="middle" style="width: 20%;">产品净值</th>
                 <th valign="middle" style="width: 10%;">净值日期</th>
                 <?php
-                    foreach ($contentList as $data) {
-                        if ($data->isLabel == true) {
-                            continue;
-                        }
-                        
+                    $sql_query = "SELECT * FROM `product_detail` WHERE code='8193'";
+                    $query_result = $db->query($sql_query);
+                    echo '$result is ' . $query_result . '</br>';
+                    $arr = $db->fetchAll();
+                    $arr_count = count($arr, COUNT_NORMAL);
+                    echo '$arr_count length is ' . $arr_count . '</br>';
+                    foreach ($arr as $a) {
+                        $code = $a['code'];
+                        $name = $a['name'];
+                        $date = date("Ymd", strtotime($a['date']));
+                        $worth = floatval($a['net_worth']);
                 ?>
                 <tr align="center">
-                    <td><?php echo $data->PrdCode ?></td>
-                    <td><?php echo $data->PrdName ?></td>
-                    <td><?php echo $data->Content ?></td>
-                    <td><?php echo $data->Time ?></td>
+                    <td><?php echo $a['code'] ?></td>
+                    <td><?php echo $a['name'] ?></td>
+                    <td><?php echo $a['net_worth'] ?></td>
+                    <td><?php echo $a['date'] ?></td>
                 </tr>
                 <?php
                     }
@@ -54,6 +68,16 @@ require_once('csj.php');
 </div>
     <?php
         //phpinfo();
+        $str='hello 你好'.'</br>';
+        echo $str;
+        
+        $mProductInfo = ProductInfo::getInstance($db);
+        $mProductInfo->getProductInfo($db);
+        $mProductInfo->showProductInfo();
+        $mProductInfo = ProductInfo::getInstance($db);
+        $mProductInfo->setCurrentDate(date("Y-m-d", strtotime("20150618")));
+        $mProductInfo->getProductInfo($db);
+        $mProductInfo->showProductInfo();
     ?>
 </body>
 </html>
