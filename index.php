@@ -16,13 +16,17 @@
 <?php
 //session_start();
 //error_reporting(0);
-set_time_limit(200);
-$rootDir = './';
+//set_time_limit(200);
+if (!isset($rootDir)) $rootDir = './';
 require_once($rootDir . "config.php"); //配置
 require_once($rootDir . "lib/mysql.class.php"); //数据类
 require_once($rootDir . "lib/func.class.php"); //核心类
 require_once($rootDir . "ProductInfo.php");
 //require_once('csj.php');
+?>
+
+<?php
+require_once($rootDir . "prepare.php");
 ?>
 
 <center>
