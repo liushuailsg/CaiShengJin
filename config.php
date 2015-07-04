@@ -8,4 +8,10 @@ $cfg["dbname"]="CaiShengJin"; //数据库名称
 //$cfg["website"]="http://liushuailsg.sinaapp.com/chelsea"; //网站域名
 //$cfg["webtitle"]="chelsea"; //系统名称
 
+
+$weekYieldRateImage = './png/weekYieldRate.png';
+$monthYieldRateImage = './png/monthYieldRate.png';
+$quarterYieldRateImage = './png/quarterYieldRate.png';
+$yearYieldRateImage = './png/yearYieldRate.png';
+
 ?>

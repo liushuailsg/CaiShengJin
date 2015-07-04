@@ -32,7 +32,7 @@ class ProductInfo {
         $query_result = $db->query($sql_query);
         $arr = $db->fetchAll();
         $arr_count = count($arr, COUNT_NORMAL);
-        echo '$arr_count length is ' . $arr_count . '</br>';
+        if(debug()) echo '$arr_count length is ' . $arr_count . '</br>';
         if ($arr_count != 0) {
             $mProductInfo = new ProductInfo($arr[0]['code'], $arr[0]['name'], $arr[0]['cost'], $arr[0]['date']);
             return $mProductInfo;
@@ -104,19 +104,19 @@ class ProductInfo {
         }
         
         /*foreach ($arr as $a) {
-            echo '$result : ' . $a['date'] . '</br>';
+            if(debug()) echo '$result : ' . $a['date'] . '</br>';
         }*/
         
         $start_date = $arr[$arr_count-1]['date'];
         $end_date = $arr[0]['date'];
         $intervalTime = strtotime($end_date) - strtotime($start_date);
         $intervalDay = $intervalTime / (24*3600);
-        echo 'day---------------------------:' . $intervalDay . '</br>';
+        if(debug()) echo 'day---------------------------:' . $intervalDay . '</br>';
         
         $start_worth = $arr[$arr_count-1]['net_worth'];
         $end_worth = $arr[0]['net_worth'];
         $intervalWorth = round(($end_worth - $start_worth), 4);
-        echo 'val---------------------------:' . $intervalWorth . '</br>';
+        if(debug()) echo 'val---------------------------:' . $intervalWorth . '</br>';
         $yieldRate = $intervalWorth / $intervalDay;
         return $yieldRate;
     }

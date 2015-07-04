@@ -19,6 +19,7 @@
 //set_time_limit(200);
 if (!isset($rootDir)) $rootDir = './';
 require_once($rootDir . "config.php"); //配置
+require_once($rootDir . "common/util.php"); //工具类
 require_once($rootDir . "lib/mysql.class.php"); //数据类
 require_once($rootDir . "lib/func.class.php"); //核心类
 require_once($rootDir . "ProductInfo.php");
@@ -27,6 +28,12 @@ require_once($rootDir . "ProductInfo.php");
 
 <?php
 require_once($rootDir . "prepare.php");
+?>
+
+<?php
+$mProductInfo = ProductInfo::getInstance($db);
+$mProductInfo->getProductInfo($db);
+$mProductInfo->showProductInfo();
 ?>
 
 <center>
@@ -38,12 +45,10 @@ require_once($rootDir . "prepare.php");
                 <th valign="middle" style="width: 20%;">产品净值</th>
                 <th valign="middle" style="width: 10%;">净值日期</th>
                 <?php
-                    $sql_query = "SELECT * FROM `product_detail` WHERE code='8193'";
+                    $sql_query = "SELECT * FROM `product_detail` WHERE code='8193' limit 0,10";
                     $query_result = $db->query($sql_query);
-                    echo '$result is ' . $query_result . '</br>';
                     $arr = $db->fetchAll();
                     $arr_count = count($arr, COUNT_NORMAL);
-                    echo '$arr_count length is ' . $arr_count . '</br>';
                     foreach ($arr as $a) {
                         $code = $a['code'];
                         $name = $a['name'];
@@ -64,24 +69,28 @@ require_once($rootDir . "prepare.php");
 </center>
 
 
-<div style="width: 600px; margin: 0 auto;" id="content">
+<!-- div style="width: 600px; margin: 0 auto;" id="content">
     <img src="../xampp.gif" /><br />
     <div style="background-color:#73749A; color: white; line-height: 40px; height: 40px;  padding-left: 3px; margin-bottom: 8px;">
 <a style="background-color: #73749A;" href="./phpmyadmin">phpmyadmin 账号密码: root/root </a>
     </div>
-</div>
-    <?php
-        //phpinfo();
-        $str='hello 你好'.'</br>';
-        echo $str;
-        
-        $mProductInfo = ProductInfo::getInstance($db);
-        $mProductInfo->getProductInfo($db);
-        $mProductInfo->showProductInfo();
-        $mProductInfo = ProductInfo::getInstance($db);
-        $mProductInfo->setCurrentDate(date("Y-m-d", strtotime("20150618")));
-        $mProductInfo->getProductInfo($db);
-        $mProductInfo->showProductInfo();
-    ?>
+</div -->
+
+<?php
+require_once($rootDir . "processData.php");
+require_once($rootDir . "generateImage.php");
+
+echo '</br>';
+
+//显示图片
+echo '<img src="' . $weekYieldRateImage . '"/>';
+echo '<img src="' . $monthYieldRateImage . '"/>';
+echo '<img src="' . $quarterYieldRateImage . '"/>';
+echo '<img src="' . $yearYieldRateImage . '"/>';
+//$img = imagecreatefrompng($weekYieldRate);
+//header('Content-Type:image/png;');
+//imagepng($img);
+
+?>
 </body>
 </html>
