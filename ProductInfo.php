@@ -63,7 +63,7 @@ class ProductInfo {
             $this->assets = round($arr[0]['net_worth'] * $this->count, 2);
             $this->yields = $this->assets - $this->cost;
             $this->yields = round($this->yields, 2);
-            if ($arr_count > 1 && self::isWeekday($currentDate) && self::getLastWeekday($currentDate) == $arr[0]['date']) {
+            if ($arr_count > 1 && isWeekday($currentDate) && getLastWeekday($currentDate) == $arr[0]['date']) {
                 $lastAssets = round($arr[1]['net_worth'] * $this->count, 2);
                 $this->dayYield = round($this->assets - $lastAssets, 2);
             }
@@ -121,23 +121,6 @@ class ProductInfo {
         return $yieldRate;
     }
     
-    public function isWeekday($date) {
-        $weekNum = date("w", strtotime($date));
-        if ($weekNum > 0 && $weekNum < 6) {
-            return true;
-        }
-        return false;
-    }
-    
-    public function getLastWeekday($date) {
-        $lastDateTimestamp = strtotime($date);
-        do {
-            $lastDateTimestamp = strtotime("-1 day", $lastDateTimestamp);
-            $lastDate = date("Y-m-d", $lastDateTimestamp);
-        } while(!self::isWeekday($lastDate));
-        return $lastDate;
-    }
-    
     public function showProductInfo() {
         echo '产品代码：' . $this->code . '</br>';
         echo '产品名称：' . $this->name . '</br>';
@@ -148,10 +131,10 @@ class ProductInfo {
         echo '累计收益：' . $this->yields . '</br>';
         echo '总资产：' . $this->assets . '</br>';
         echo '昨日收益：' . $this->dayYield . '</br>';
-        echo '七日年化收益率：' . $this->weekYieldRate . '</br>';
-        echo '单月年化收益率：' . $this->monthYieldRate . '</br>';
-        echo '季度年化收益率：' . $this->quarterYieldRate . '</br>';
-        echo '年度年化收益率：' . $this->yearYieldRate . '</br>';
+        echo '七日年化收益率：' . $this->weekYieldRate * 100 . '%' . '</br>';
+        echo '单月年化收益率：' . $this->monthYieldRate * 100 . '%' . '</br>';
+        echo '季度年化收益率：' . $this->quarterYieldRate * 100 . '%' . '</br>';
+        echo '年度年化收益率：' . $this->yearYieldRate * 100 . '%' . '</br>';
     }
 }
 

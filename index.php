@@ -3,7 +3,7 @@
 	<meta charset="utf-8" />
 	<meta http-equiv="content-type" content="text/html" />
 	<meta name="author" content="Tuesday 2014-10-16" />
-	<title>CaiShengJin</title>
+	<title>财生金</title>
 
 <style type="text/css">
     #content table{ width: 600px;}
@@ -14,8 +14,11 @@
 <body>
 
 <?php
+date_default_timezone_set('asia/shanghai');
+//list($s1, $s2) = explode(' ', microtime());
+//echo date("Y-m-d H:i:s") . ' ' . $s1 . '</br>';
 //session_start();
-//error_reporting(0);
+error_reporting(0);
 //set_time_limit(200);
 if (!isset($rootDir)) $rootDir = './';
 require_once($rootDir . "config.php"); //配置
@@ -27,6 +30,8 @@ require_once($rootDir . "ProductInfo.php");
 ?>
 
 <?php
+list($s1, $s2) = explode(' ', microtime());
+if(debug()) echo date("Y-m-d H:i:s") . ' ' . $s1 . '</br>';
 require_once($rootDir . "prepare.php");
 ?>
 
@@ -91,6 +96,8 @@ echo '<img src="' . $yearYieldRateImage . '"/>';
 //header('Content-Type:image/png;');
 //imagepng($img);
 
+list($s1, $s2) = explode(' ', microtime());
+if(debug()) echo date("Y-m-d H:i:s") . ' ' . $s1 . '</br>';
 ?>
 </body>
 </html>
