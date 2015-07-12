@@ -27,12 +27,12 @@ class ProductInfo {
         $this->currentDate = date("Y-m-d");
     }
     
-    public static function getInstance($db) {
-        $sql_query = "SELECT * FROM `product_info` WHERE code='8193'";
+    public static function getInstance($db, $code) {
+        $sql_query = "SELECT * FROM `product_info` WHERE code='$code' ORDER BY `product_info`.`date` DESC ";
         $query_result = $db->query($sql_query);
         $arr = $db->fetchAll();
         $arr_count = count($arr, COUNT_NORMAL);
-        if(debug()) echo '$arr_count length is ' . $arr_count . '</br>';
+        Log::verbose('ProductInfo getInstance $arr_count length is ' . $arr_count);
         if ($arr_count != 0) {
             $mProductInfo = new ProductInfo($arr[0]['code'], $arr[0]['name'], $arr[0]['cost'], $arr[0]['date']);
             return $mProductInfo;
@@ -44,7 +44,8 @@ class ProductInfo {
     }
     
     public function getProductInfo($db) {
-        $sql_query = "SELECT * FROM `product_detail` WHERE code='8193' AND date='$this->date'";
+        $sql_query = "SELECT * FROM `product_detail` WHERE code='8193' AND date='$this->date'
+                ORDER BY `product_detail`.`date` DESC ";
         $query_result = $db->query($sql_query);
         $arr = $db->fetchAll();
         $arr_count = count($arr, COUNT_NORMAL);
@@ -55,7 +56,8 @@ class ProductInfo {
 //        $currentDate = date("Y-m-d", strtotime("-1 day", strtotime($this->currentDate)));
         $currentDate = $this->currentDate;
         
-        $sql_query = "SELECT * FROM `product_detail` WHERE code='8193' AND date>='$this->date' AND date<'$currentDate'";
+        $sql_query = "SELECT * FROM `product_detail` WHERE code='8193' AND date>='$this->date' AND date<'$currentDate'
+                ORDER BY `product_detail`.`date` DESC ";
         $query_result = $db->query($sql_query);
         $arr = $db->fetchAll();
         $arr_count = count($arr, COUNT_NORMAL);
@@ -95,7 +97,8 @@ class ProductInfo {
      * 结果 * 份数 * 365就是年收益，再除以成本就是这几天的年化收益率
      */
     public static function getYieldRate($db, $max_date, $min_date) {
-        $sql_query = "SELECT * FROM `product_detail` WHERE code='8193' AND date>='$min_date' AND date<'$max_date'";
+        $sql_query = "SELECT * FROM `product_detail` WHERE code='8193' AND date>='$min_date' AND date<'$max_date'
+                ORDER BY `product_detail`.`date` DESC ";
         $query_result = $db->query($sql_query);
         $arr = $db->fetchAll();
         $arr_count = count($arr, COUNT_NORMAL);
@@ -104,19 +107,19 @@ class ProductInfo {
         }
         
         /*foreach ($arr as $a) {
-            if(debug()) echo '$result : ' . $a['date'] . '</br>';
+            Log::debug('$result : ' . $a['date']);
         }*/
         
         $start_date = $arr[$arr_count-1]['date'];
         $end_date = $arr[0]['date'];
         $intervalTime = strtotime($end_date) - strtotime($start_date);
         $intervalDay = $intervalTime / (24*3600);
-        if(debug()) echo 'day---------------------------:' . $intervalDay . '</br>';
+        Log::verbose('day---------------------------:' . $intervalDay);
         
         $start_worth = $arr[$arr_count-1]['net_worth'];
         $end_worth = $arr[0]['net_worth'];
         $intervalWorth = round(($end_worth - $start_worth), 4);
-        if(debug()) echo 'val---------------------------:' . $intervalWorth . '</br>';
+        Log::verbose('val---------------------------:' . $intervalWorth);
         $yieldRate = $intervalWorth / $intervalDay;
         return $yieldRate;
     }
@@ -135,6 +138,22 @@ class ProductInfo {
         echo '单月年化收益率：' . $this->monthYieldRate * 100 . '%' . '</br>';
         echo '季度年化收益率：' . $this->quarterYieldRate * 100 . '%' . '</br>';
         echo '年度年化收益率：' . $this->yearYieldRate * 100 . '%' . '</br>';
+    }
+    
+    public function debugProductInfo() {
+        Log::verbose('产品代码：' . $this->code);
+        Log::verbose('产品名称：' . $this->name);
+        Log::verbose('成本：' . $this->cost);
+        Log::verbose('购买日期：' . $this->date);
+        Log::verbose('购买份数：' . $this->count);
+        Log::verbose('当前日期：' . $this->currentDate);
+        Log::verbose('累计收益：' . $this->yields);
+        Log::verbose('总资产：' . $this->assets);
+        Log::verbose('昨日收益：' . $this->dayYield);
+        Log::verbose('七日年化收益率：' . $this->weekYieldRate * 100 . '%');
+        Log::verbose('单月年化收益率：' . $this->monthYieldRate * 100 . '%');
+        Log::verbose('季度年化收益率：' . $this->quarterYieldRate * 100 . '%');
+        Log::verbose('年度年化收益率：' . $this->yearYieldRate * 100 . '%');
     }
 }
 

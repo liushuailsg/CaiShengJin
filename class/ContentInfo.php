@@ -31,10 +31,10 @@ class ContentInfo {
             $list = $cells_list;
             $this->isLabel = false;
         } else {
-            echo 'no table'.'</br>';
+            Log::debug('no table');
             return;
         }
-//        echo '$list='.$list->length.'</br>'.'</br>';
+//        Log::debug('$list='.$list->length);
 
         $curIndex = 0;
         foreach ($list as $item)

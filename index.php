@@ -15,28 +15,44 @@
 
 <?php
 date_default_timezone_set('asia/shanghai');
-//list($s1, $s2) = explode(' ', microtime());
-//echo date("Y-m-d H:i:s") . ' ' . $s1 . '</br>';
-//session_start();
-error_reporting(0);
-//set_time_limit(200);
+list($s1, $s2) = explode(' ', microtime());
+echo "CaiShengJin start time:". date("Y-m-d H:i:s") . ' ' . $s1 . '</br>';
+
 if (!isset($rootDir)) $rootDir = './';
 require_once($rootDir . "config.php"); //配置
+require_once($rootDir . "class/Log.php"); //Log类
+require_once($rootDir . "class/ProductInfo.php");
 require_once($rootDir . "common/util.php"); //工具类
 require_once($rootDir . "lib/mysql.class.php"); //数据类
 require_once($rootDir . "lib/func.class.php"); //核心类
-require_once($rootDir . "ProductInfo.php");
-//require_once('csj.php');
+require_once($rootDir . "prepareData.php");
+require_once($rootDir . "processData.php");
+
+set_time_limit($time_limit);
+//error_reporting(0);
+
 ?>
 
 <?php
 list($s1, $s2) = explode(' ', microtime());
-if(debug()) echo date("Y-m-d H:i:s") . ' ' . $s1 . '</br>';
-require_once($rootDir . "prepare.php");
+Log::debug("CaiShengJin start time:". date("Y-m-d H:i:s") . ' ' . $s1);
+Log::log_echo(date("Y-m-d H:i:s") . ' ' . $s1);
+$productCode = '8193';
+if (!inSync($productCode)) {
+    $ret1 = prepareData($productCode);
+    $ret2 = processData($productCode);
+    if (!$ret1 && !$ret2) {
+        Log::debug('Table data is already up-to-date!');
+    } else {
+        Log::debug('startSync!');
+        startSync($cfg["svhost"], $cfg["svport"], $productCode);
+    }
+}
+//prepareData(107107);
 ?>
 
 <?php
-$mProductInfo = ProductInfo::getInstance($db);
+$mProductInfo = ProductInfo::getInstance($db, $productCode);
 $mProductInfo->getProductInfo($db);
 $mProductInfo->showProductInfo();
 ?>
@@ -50,7 +66,8 @@ $mProductInfo->showProductInfo();
                 <th valign="middle" style="width: 20%;">产品净值</th>
                 <th valign="middle" style="width: 10%;">净值日期</th>
                 <?php
-                    $sql_query = "SELECT * FROM `product_detail` WHERE code='8193' limit 0,10";
+                    $sql_query = "SELECT * FROM `product_detail` WHERE code='8193'
+                            ORDER BY `product_detail`.`date` DESC limit 0,10";
                     $query_result = $db->query($sql_query);
                     $arr = $db->fetchAll();
                     $arr_count = count($arr, COUNT_NORMAL);
@@ -82,10 +99,7 @@ $mProductInfo->showProductInfo();
 </div -->
 
 <?php
-require_once($rootDir . "processData.php");
-require_once($rootDir . "generateImage.php");
-
-echo '</br>';
+Log::log_echo('</br>');
 
 //显示图片
 echo '<img src="' . $weekYieldRateImage . '"/>';
@@ -97,7 +111,7 @@ echo '<img src="' . $yearYieldRateImage . '"/>';
 //imagepng($img);
 
 list($s1, $s2) = explode(' ', microtime());
-if(debug()) echo date("Y-m-d H:i:s") . ' ' . $s1 . '</br>';
+Log::debug("CaiShengJin end time:". date("Y-m-d H:i:s") . ' ' . $s1);
 ?>
 </body>
 </html>

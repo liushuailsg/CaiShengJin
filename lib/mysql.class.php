@@ -217,14 +217,14 @@ class mysql
         {
             $this->errno = mysql_errno();
             $this->error = mysql_error();
-            echo "<b>mysql error:<b><br>";
-            echo $this->errno.":".$this->error."<br>";
+            Log::debug("<b>mysql error:<b><br>");
+            Log::debug($this->errno.":".$this->error);
             exit;
         }
         else
         {
-            echo "<b>mysql error:<b><br>";
-            echo $err_msg."<br>";
+            Log::debug("<b>mysql error:<b><br>");
+            Log::debug($err_msg);
             exit;
         }
     }
