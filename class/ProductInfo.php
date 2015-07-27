@@ -27,8 +27,8 @@ class ProductInfo {
         $this->currentDate = date("Y-m-d");
     }
     
-    public static function getInstance($db, $code) {
-        $sql_query = "SELECT * FROM `product_info` WHERE code='$code' ORDER BY `product_info`.`date` DESC ";
+    public static function getInstance($db, $id) {
+        $sql_query = "SELECT * FROM `product_info` WHERE _id='$id'";
         $query_result = $db->query($sql_query);
         $arr = $db->fetchAll();
         $arr_count = count($arr, COUNT_NORMAL);
@@ -39,12 +39,12 @@ class ProductInfo {
         }
     }
     
-    public  function setCurrentDate($date) {
+    public function setCurrentDate($date) {
         $this->currentDate = date("Y-m-d", strtotime($date));
     }
     
     public function getProductInfo($db) {
-        $sql_query = "SELECT * FROM `product_detail` WHERE code='8193' AND date='$this->date'
+        $sql_query = "SELECT * FROM `product_detail` WHERE code='$this->code' AND date='$this->date'
                 ORDER BY `product_detail`.`date` DESC ";
         $query_result = $db->query($sql_query);
         $arr = $db->fetchAll();
@@ -56,7 +56,7 @@ class ProductInfo {
 //        $currentDate = date("Y-m-d", strtotime("-1 day", strtotime($this->currentDate)));
         $currentDate = $this->currentDate;
         
-        $sql_query = "SELECT * FROM `product_detail` WHERE code='8193' AND date>='$this->date' AND date<'$currentDate'
+        $sql_query = "SELECT * FROM `product_detail` WHERE code='$this->code' AND date>='$this->date' AND date<'$currentDate'
                 ORDER BY `product_detail`.`date` DESC ";
         $query_result = $db->query($sql_query);
         $arr = $db->fetchAll();
@@ -69,59 +69,11 @@ class ProductInfo {
                 $lastAssets = round($arr[1]['net_worth'] * $this->count, 2);
                 $this->dayYield = round($this->assets - $lastAssets, 2);
             }
+            $this->weekYieldRate = round($arr[0]['weekYieldRate'] * $this->count / $this->cost, 4);
+            $this->monthYieldRate = round($arr[0]['monthYieldRate'] * $this->count / $this->cost, 4);
+            $this->quarterYieldRate = round($arr[0]['quarterYieldRate'] * $this->count / $this->cost, 4);
+            $this->yearYieldRate = round($arr[0]['yearYieldRate'] * $this->count / $this->cost, 4);
         }
-        //########################################################################
-        $lastWeek = date("Y-m-d", strtotime("-1 week", strtotime($currentDate)));
-        $weekYieldRate = (self::getYieldRate($db, $currentDate, $lastWeek) * $this->count * 365) / $this->cost;
-        $this->weekYieldRate = $weekYieldRate;
-        $this->weekYieldRate = round($this->weekYieldRate, 4);
-        //########################################################################
-        $lastMonth = date("Y-m-d", strtotime("-1 month", strtotime($currentDate)));
-        $monthYieldRate = (self::getYieldRate($db, $currentDate, $lastMonth) * $this->count * 365) / $this->cost;
-        $this->monthYieldRate = $monthYieldRate;
-        $this->monthYieldRate = round($this->monthYieldRate, 4);
-        //########################################################################
-        $lastQuarter = date("Y-m-d", strtotime("-3 month", strtotime($currentDate)));
-        $quarterYieldRate = (self::getYieldRate($db, $currentDate, $lastQuarter) * $this->count * 365) / $this->cost;
-        $this->quarterYieldRate = $quarterYieldRate;
-        $this->quarterYieldRate = round($this->quarterYieldRate, 4);
-        //########################################################################
-        $lastYear = date("Y-m-d", strtotime("-1 year", strtotime($currentDate)));
-        $yearYieldRate = (self::getYieldRate($db, $currentDate, $lastYear) * $this->count * 365) / $this->cost;
-        $this->yearYieldRate = $yearYieldRate;
-        $this->yearYieldRate = round($this->yearYieldRate, 4);
-    }
-    
-    /*
-     * 此函数获取最大日期和最小日期区间的平均日收益
-     * 结果 * 份数 * 365就是年收益，再除以成本就是这几天的年化收益率
-     */
-    public static function getYieldRate($db, $max_date, $min_date) {
-        $sql_query = "SELECT * FROM `product_detail` WHERE code='8193' AND date>='$min_date' AND date<'$max_date'
-                ORDER BY `product_detail`.`date` DESC ";
-        $query_result = $db->query($sql_query);
-        $arr = $db->fetchAll();
-        $arr_count = count($arr, COUNT_NORMAL);
-        if ($arr_count < 2) {
-            return 0;
-        }
-        
-        /*foreach ($arr as $a) {
-            Log::debug('$result : ' . $a['date']);
-        }*/
-        
-        $start_date = $arr[$arr_count-1]['date'];
-        $end_date = $arr[0]['date'];
-        $intervalTime = strtotime($end_date) - strtotime($start_date);
-        $intervalDay = $intervalTime / (24*3600);
-        Log::verbose('day---------------------------:' . $intervalDay);
-        
-        $start_worth = $arr[$arr_count-1]['net_worth'];
-        $end_worth = $arr[0]['net_worth'];
-        $intervalWorth = round(($end_worth - $start_worth), 4);
-        Log::verbose('val---------------------------:' . $intervalWorth);
-        $yieldRate = $intervalWorth / $intervalDay;
-        return $yieldRate;
     }
     
     public function showProductInfo() {

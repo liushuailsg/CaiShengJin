@@ -35,7 +35,7 @@
     
     function inSync($productCode) {
         global $db;
-        $query_sql="select * from sync_task where code='$productCode' ORDER BY `sync_task`.`date` DESC ";
+        $query_sql="select * from sync_task where code='$productCode'";
         $query_result = $db->query($query_sql);
         $arr = $db->fetchAll();
         $arr_count = count($arr, COUNT_NORMAL);
@@ -46,6 +46,24 @@
             }
         }
         return false;
+    }
+    
+    function startSyncData($host, $port, $productCode) {
+        Log::debug('startSyncData function run');
+//        $path = '/CaiShengJin/syncData.php';
+//        pclose(popen('php ' . $path . ' &', 'r'));
+        $ch = curl_init();
+//        $curl_opt = array(
+//            CURLOPT_URL, 'http://localhost/CaiShengJin/syncData.php?param=8193',
+//            CURLOPT_RETURNTRANSFER,1,
+//            CURLOPT_TIMEOUT,1
+//        );
+//        curl_setopt_array($ch, $curl_opt);
+        curl_setopt($ch, CURLOPT_URL, "http://localhost/CaiShengJin/syncData.php" . "?param=" . $productCode);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_HEADER, 0);
+        curl_exec($ch);
+        curl_close($ch);
     }
     
     function startSync($host, $port, $productCode) {
@@ -75,5 +93,24 @@
         Log::debug('$fullname is ' . $fullname);
         $content = date('[Y-m-d H:i:s]').$content."\n";
         file_put_contents($fullname, $content, FILE_APPEND);
+    }
+    
+    function isUpToDate() {
+        $date = date("Y-m-d");
+        if (isWeekday($date)) {
+            $lastWeekday = getLastWeekday($date);
+        } else {
+            $lastWeekday = getLastWeekday(getLastWeekday($date));
+        }
+        
+        global $db;
+        $query_sql="select * from product_detail where date='$lastWeekday'";
+        $query_result = $db->query($query_sql);
+        if ($db->recordCount()) {
+            Log::debug('util product_detail table is already up-to-date');
+            return true;
+        } else {
+            return false;
+        }
     }
 ?>

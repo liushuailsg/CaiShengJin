@@ -11,15 +11,16 @@ $cfg["dbname"]="caishengjin"; //数据库名称
 $cfg["svhost"]="localhost"; //服务器地址
 $cfg["svport"]="80"; //服务器端口
 
-$time_limit =200;
-$sync_interval = 60; //5s
+$time_limit =600;
+$sync_interval = 60; //60s
 $sync_time = strtotime('+5 min') - time();
 
 $storage_path = dirname(__FILE__) . "/../CSJ/";
 $log_path = $storage_path . "log/csj.log";
-$weekYieldRateImage = "./../CSJ/" . "png/weekYieldRate.png";
-$monthYieldRateImage = "./../CSJ/" . "png/monthYieldRate.png";
-$quarterYieldRateImage = "./../CSJ/" . "png/quarterYieldRate.png";
-$yearYieldRateImage = "./../CSJ/" . "png/yearYieldRate.png";
+$ImageDir = "./../CSJ/png/";
+$weekYieldRateImage = $ImageDir . "weekYieldRate.png";
+$monthYieldRateImage = $ImageDir . "monthYieldRate.png";
+$quarterYieldRateImage = $ImageDir . "quarterYieldRate.png";
+$yearYieldRateImage = $ImageDir . "yearYieldRate.png";
 
 ?>

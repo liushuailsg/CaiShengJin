@@ -26,6 +26,7 @@ require_once($rootDir . "class/ContentInfo.php");
             $condition = ParseFromHTMLFile($url);
             Log::debug('which continue is ' . $condition);
             Log::debug('####################################### end ');
+            sleep(5);
         } while ($condition);
     }
 
@@ -121,7 +122,7 @@ require_once($rootDir . "class/ContentInfo.php");
                         ORDER BY `original_product_detail`.`date` DESC ";
                 $query_result = $db->query($query_sql);
                 if ($db->recordCount()) {
-                    Log::debug($content_code.' '.$content_name.' '.$content_content.' '.$content_time);
+                    Log::debug($content_code.' '.$content_name.' '.$content_content.' '.$content_time . " already exist");
                     return false;
                 }
                 
@@ -147,7 +148,7 @@ require_once($rootDir . "class/ContentInfo.php");
                 } else {
                     $ret = "插入 ok";
                 }
-                Log::debug("product_detail " . $ret);
+                Log::debug("product_detail original data " . $ret);
             }
         }
         

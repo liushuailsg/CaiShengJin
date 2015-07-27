@@ -12,7 +12,11 @@ require_once($rootDir . "pChart/pChart.class");
 <?php
 function generateImage($productCode) {
     // 删除图片
-    global $weekYieldRateImage, $monthYieldRateImage, $quarterYieldRateImage, $yearYieldRateImage;
+    global $ImageDir;
+    $weekYieldRateImage = $ImageDir . $productCode . "-weekYieldRate.png";
+    $monthYieldRateImage = $ImageDir . $productCode . "-monthYieldRate.png";
+    $quarterYieldRateImage = $ImageDir . $productCode . "-quarterYieldRate.png";
+    $yearYieldRateImage = $ImageDir . $productCode . "-yearYieldRate.png";
     $result = @unlink($weekYieldRateImage) && @unlink($monthYieldRateImage) && @unlink($quarterYieldRateImage) && @unlink($yearYieldRateImage);
     if ($result == true) {
         Log::debug("png file" . ' delete succeed');
@@ -22,12 +26,12 @@ function generateImage($productCode) {
     
     //生成图片
     global $db;
-    $sql_query = "SELECT * FROM `yield` WHERE code='8193' ORDER BY `yield`.`date` ASC ";
+    $sql_query = "SELECT * FROM `yield` WHERE code='$productCode' ORDER BY `yield`.`date` ASC ";
     $query_result = $db->query($sql_query);
     $pos = $db->recordCount() - 30;
     $pos = $pos < 0 ? 0 : $pos;
     $sql_query = "SELECT date,weekYieldRate,monthYieldRate,quarterYieldRate,yearYieldRate
-            FROM `yield` WHERE code='8193' ORDER BY `yield`.`date` ASC limit $pos,30";
+            FROM `yield` WHERE code='$productCode' ORDER BY `yield`.`date` ASC limit $pos,30";
     $query_result = $db->query($sql_query);
     $arr = $db->fetchAll();
     $dateList = new ArrayObject();

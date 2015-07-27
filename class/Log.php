@@ -1,6 +1,7 @@
 <?php
 set_error_handler(array('Log', 'log_error'));
 set_exception_handler(array('Log', 'log_exception'));
+register_shutdown_function(array('Log', 'log_shutdown'));
 
 class Log {
     
@@ -84,9 +85,22 @@ class Log {
         //die();
     }
     
-    public static function log_exception($content) {
+    public static function log_exception($exception) {
 //        echo "<b>Exception:</b> " , $exception->getMessage();
         $exception = "Exception: " . $exception->getMessage() . "\n".
         self::debug($exception);
+    }
+    
+    public static function log_shutdown() {
+        self::debug("log_shutdown run");
+        $last_error = error_get_last();
+        if ($last_error) {
+            $err_type = $last_error['type'];
+            $err_message = $last_error['message'];
+            $err_file = $last_error['file'];
+            $err_line = $last_error['line'];
+            $error = "Fatal error: [$err_type] $err_message in $err_file on line $err_line";
+            self::debug($error);
+        }
     }
 }
